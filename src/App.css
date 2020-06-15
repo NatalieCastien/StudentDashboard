@@ -1,38 +1,248 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Raleway&family=Unica+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Roboto&family=Stalemate&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Wire+One&display=swap");
+/* Colors */
+/* blue: #2e9397 */
+/* lightblue: #a6c9b8 */
+/* Yellow: #ee981c */
+/* Pink: #eba999 */
+/* Lightyellow: #eeefe0 */
+/* grey: #e1e8d8*/
+
+body {
+  margin: 0;
+  padding-bottom: 150px;
+  background-color: #edebe8;
+  font-family: "Raleway", sans-serif;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-areas:
+    "nav nav nav"
+    "sideNav dashboard dashboard"
+    "footer footer footer";
+}
+
+/* NAV */
+nav {
+  grid-area: nav;
+  background-color: #2d9397;
+}
+.nav-container {
+  display: grid;
+  align-items: center;
+  background-color: #8ea7a3;
+  padding: 25px 0;
+}
+.nav h1 {
+  font-size: 3.5rem;
+  letter-spacing: 6px;
+  margin: 0;
+  font-family: "Unica One", cursive;
+  text-align: center;
+  color: black;
+  padding: 10px 0 10px 0;
+  /* background-color: #8ea7a3; */
+}
+/* END NAV */
+
+/* SIDENAV */
+.sideNav {
+  grid-area: sideNav;
+  /* background-color: white; */
+  margin: 134px 10px 10px 10px;
+  /* border: 1px solid #eba999;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sideNavList {
+  padding-left: 0;
+  margin-left: 0;
+  padding: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-wrap: wrap;
+}
+.sideNavList a {
+  text-decoration: none;
+}
+.linkAll button {
+  color: #2d9397;
+  background-color: white;
+  width: 100px;
+  height: 38px;
+  padding: 5px 0px 5px 0;
+  margin: 4px;
+
+  background-color: #c4958a;
+  border: none;
+  border-radius: 2px;
   color: white;
+  /* font-family: "Raleway", sans-serif; */
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5rem;
+}
+button:hover {
+  cursor: pointer;
+  background: #e8d7d2;
+  -webkit-box-shadow: inset 0px 0px 5px #c4958a;
+  -moz-box-shadow: inset 0px 0px 5px #c4958a;
+  box-shadow: inset 0px 0px 5px #c4958a;
+  outline: none;
+}
+button:focus {
+  outline: none;
 }
 
-.App-link {
-  color: #61dafb;
+.photo {
+  border-radius: 50%;
+  margin: 5px;
+}
+.studentName {
+  color: black;
+  margin-top: 0;
+  text-decoration: none;
+}
+/* END SIDENAV */
+
+/* DASHBOARD */
+.dashboard {
+  grid-area: dashboard;
+  margin-top: 20px;
+  /* background-color: #eba999; */
+  /* padding: 10px; */
+  /* margin: 10px; */
+  /* border: 1px solid #eba999; */
+  /* border-radius: 10px; */
+}
+.graphHeader {
+  text-align: center;
+}
+.dashboard span.h1 {
+  /* font-family: "Raleway", sans-serif; */
+  font-family: "Amatic SC", cursive;
+  /* font-family: "Wire One", sans-serif; */
+  font-size: 3.3rem;
+  /* border: 1px solid #eba999; */
+  /* border-radius: 10px; */
+  border-bottom: 0.3px solid black;
+}
+.graph {
+  background-color: white;
+  padding: 10px;
+  margin: 50px 20px 20px 20px;
+  border: 1px solid #eba999;
+  border-radius: 10px;
+}
+.details {
+  background-color: white;
+  padding: 10px;
+  margin: 50px 20px 20px 20px;
+  border: 1px solid #eba999;
+  border-radius: 10px;
+}
+form {
+  text-align: center;
+  padding: 20px;
+}
+form label {
+  font-family: "Amatic SC", cursive;
+  font-size: 1.2rem;
+}
+.checkboxFun {
+  margin-left: 50px;
+}
+/* END DASHBOARD */
+
+/* FOOTER */
+footer {
+  grid-area: footer;
+}
+.footerStyle {
+  background-color: #292c33;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+}
+/* END FOOTER */
+
+/* CHECKBOX */
+label {
+  position: relative;
+  cursor: pointer;
+}
+label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+label span {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  top: 3px;
+  left: -25px;
+}
+label:hover span {
+  background-color: #ccc;
+}
+label input:checked ~ span {
+  background-color: #4c7b81;
+}
+/* The check symbol not visible when not checked */
+span:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+/* Show the check symbol when checked */
+label input:checked ~ span:after {
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Check symbol */
+label span:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* END CHECBOX */
+
+@media only screen and (max-width: 768px) {
+  .main {
+    display: grid;
+    /* grid-template-columns: 1fr 2fr 2fr; */
+    grid-template-areas:
+      "nav nav nav"
+      "dashboard dashboard dashboard"
+      "sideNav sideNav sideNav"
+      "footer footer footer";
   }
-  to {
-    transform: rotate(360deg);
+  .sideNavList {
+    display: grid; /* 1 */
+    grid-template-columns: repeat(auto-fill, 100px); /* 2 */
+    grid-gap: 1rem; /* 3 */
+    justify-content: space-between; /* 4 */
+    margin-top: 20px;
   }
 }

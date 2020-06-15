@@ -1,11 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Dashboard from "./components/Dashboard";
+import ChartExample from "./components/ChartExample/ChartExample";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div className="main">
+      <Header />
+      <Dashboard />
+      <Footer />
+      {/* <ChartExample /> */}
     </div>
   );
 }
