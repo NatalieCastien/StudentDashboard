@@ -7,10 +7,9 @@ import {
   VictoryGroup,
   VictoryLegend,
 } from "victory";
-import ChartTheme from "./ChartTheme";
+import ChartTheme from "../ChartTheme";
 
 const LineChart = (props) => {
-  // console.log(props.ratings);
   return (
     <div>
       <VictoryChart theme={ChartTheme}>

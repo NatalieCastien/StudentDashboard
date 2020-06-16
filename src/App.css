@@ -1,13 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&family=Unica+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Roboto&family=Stalemate&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Wire+One&display=swap");
-/* Colors */
-/* blue: #2e9397 */
-/* lightblue: #a6c9b8 */
-/* Yellow: #ee981c */
-/* Pink: #eba999 */
-/* Lightyellow: #eeefe0 */
-/* grey: #e1e8d8*/
 
 body {
   margin: 0;
@@ -44,24 +37,19 @@ nav {
   text-align: center;
   color: black;
   padding: 10px 0 10px 0;
-  /* background-color: #8ea7a3; */
 }
 /* END NAV */
 
 /* SIDENAV */
 .sideNav {
   grid-area: sideNav;
-  /* background-color: white; */
   margin: 134px 10px 10px 10px;
-  /* border: 1px solid #eba999;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
   text-align: center;
 }
 .sideNavList {
   padding-left: 0;
   margin-left: 0;
+  margin-top: 65px;
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -71,18 +59,14 @@ nav {
   text-decoration: none;
 }
 .linkAll button {
-  color: #2d9397;
-  background-color: white;
-  width: 100px;
+  width: 140px;
   height: 38px;
   padding: 5px 0px 5px 0;
   margin: 4px;
-
   background-color: #c4958a;
   border: none;
   border-radius: 2px;
   color: white;
-  /* font-family: "Raleway", sans-serif; */
   font-family: "Amatic SC", cursive;
   font-size: 1.5rem;
 }
@@ -102,6 +86,7 @@ button:focus {
   border-radius: 50%;
   margin: 5px;
   width: 80px;
+  border: 1px solid #eba999;
 }
 .studentName {
   color: black;
@@ -114,35 +99,26 @@ button:focus {
 .dashboard {
   grid-area: dashboard;
   margin-top: 20px;
-  /* background-color: #eba999; */
-  /* padding: 10px; */
-  /* margin: 10px; */
-  /* border: 1px solid #eba999; */
-  /* border-radius: 10px; */
 }
 .graphHeader {
   text-align: center;
 }
 .dashboard span.h1 {
-  /* font-family: "Raleway", sans-serif; */
   font-family: "Amatic SC", cursive;
-  /* font-family: "Wire One", sans-serif; */
   font-size: 3.3rem;
-  /* border: 1px solid #eba999; */
-  /* border-radius: 10px; */
   border-bottom: 0.3px solid black;
 }
 .graph {
   background-color: white;
   padding: 10px;
-  margin: 50px 20px 20px 20px;
+  margin: 80px 80px 40px 40px;
   border: 1px solid #eba999;
   border-radius: 10px;
 }
 .details {
   background-color: white;
   padding: 10px;
-  margin: 80px 20px 20px 20px;
+  margin: 80px 80px 40px 40px;
   border: 1px solid #eba999;
   border-radius: 10px;
 }
@@ -157,14 +133,28 @@ form label {
 .checkboxFun {
   margin-left: 50px;
 }
+.buttonHeader {
+  text-align: center;
+  margin-top: 48px;
+}
+.buttonHeader button {
+  color: #2d9397;
+  background-color: white;
+  width: 150px;
+  height: 38px;
+  padding: 5px 0px 5px 0;
+  margin: 4px;
+
+  background-color: #c4958a;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-family: "Amatic SC", cursive;
+  font-size: 1.5rem;
+}
 /* END DASHBOARD */
 
 /* DETAILS */
-.studentDetails {
-  /* display: flex;
-  justify-content: space-between;
-  position: relative; */
-}
 .detailPicture {
   position: relative;
   text-align: center;
@@ -172,7 +162,7 @@ form label {
 .detailPicture img {
   border-radius: 50%;
   margin-top: -70px;
-  border: 1px solid #eba999;
+  border: 1px solid #c4958a;
 }
 .detailText {
   text-align: center;
@@ -221,7 +211,7 @@ label:hover span {
   background-color: #ccc;
 }
 label input:checked ~ span {
-  background-color: #4c7b81;
+  background-color: #c4958a;
 }
 /* The check symbol not visible when not checked */
 span:after {
@@ -259,11 +249,20 @@ label span:after {
       "sideNav sideNav sideNav"
       "footer footer footer";
   }
+  .sideNav {
+    margin-top: 10px;
+  }
   .sideNavList {
     display: grid; /* 1 */
     grid-template-columns: repeat(auto-fill, 100px); /* 2 */
     grid-gap: 1rem; /* 3 */
     justify-content: space-between; /* 4 */
     margin-top: 20px;
+  }
+  .graph {
+    margin: 80px 40px 40px 40px;
+  }
+  .details {
+    margin: 80px 40px 40px 40px;
   }
 }

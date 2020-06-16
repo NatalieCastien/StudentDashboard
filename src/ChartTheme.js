@@ -50,8 +50,8 @@ const ChartTheme = {
         strokeWidth: 2.1,
       },
       labels: {
-        fontFamily: "'Amatic SC', cursive",
-        fontSize: 20,
+        fontFamily: "'Raleway', sans-serif, 'Amatic SC', cursive",
+        fontSize: 14,
         letterSpacing: "normal",
         padding: 8,
         fill: "#455A64",
@@ -89,16 +89,11 @@ const ChartTheme = {
     x: 280,
     y: 15,
     style: {
-      // border: {
-      //   stroke: "black",
-      // },
       data: {
         type: "square",
       },
       labels: {
         fontFamily: "'Amatic SC', cursive",
-
-        // fontFamily: "'Roboto', 'Helvetica Neue', Helvetica, sans-serif",
         fontSize: 24,
         letterSpacing: "normal",
         padding: 8,

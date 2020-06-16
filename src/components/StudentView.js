@@ -1,33 +1,25 @@
 import React from "react";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import BarChart from "./BarChart";
-import LineChart from "./LineChart";
-import StudentDetails from "./StudentDetails";
+import StudentProfile from "./StudentProfile";
 
 const StudentView = (props) => {
   const { id } = useParams();
-  console.log(props.personalData);
 
   // Personal details
-  const personObject = props.personalData.filter((student) => {
-    return student.id == id;
-  });
+  const personObject = props.personalData.filter((student) => student.id == id);
   const person = personObject[0];
-  // const age = person.age;
-  // const email = person.email;
 
-  const studentObject = props.students.filter((student) => {
-    return student.id == id;
-  });
-  // console.log(student);
+  // Basic information
+  const studentObject = props.students.filter((student) => student.id == id);
   const student = studentObject[0];
-  // const name = student.name;
 
-  const funEvaluations = props.funEvaluations.filter(
-    (ev) => ev.studentId == id
+  // Get the evaluations for this specific student
+  const funRatings = props.funEvaluations.filter(
+    (evaluation) => evaluation.studentId == id
   );
-  const difficultyEvaluations = props.difficultyEvaluations.filter(
-    (ev) => ev.studentId == id
+  const difficultyRatings = props.difficultyEvaluations.filter(
+    (evaluation) => evaluation.studentId == id
   );
 
   const makeListOfAssignments = (array) => {
@@ -43,28 +35,28 @@ const StudentView = (props) => {
     return assignments;
   };
 
-  const assignments = makeListOfAssignments(funEvaluations);
+  // List of the assignment names:
+  const assignments = makeListOfAssignments(funRatings);
 
-  const calcAverage = (array, assignment, type) => {
+  const calculateAverage = (array, type) => {
     const totalScore = array.reduce((total, cur) => {
       const score = type == "fun" ? total + cur.fun : total + cur.difficulty;
       return score;
     }, 0);
-    const average = totalScore / array.length;
-    return average;
+    return totalScore / array.length;
   };
 
   const setData = () => {
     let data = [];
     assignments.map((assignment) => {
-      const FUNfiltered = funEvaluations.filter(
-        (ev) => ev.assignment == assignment.assignment
+      const funFiltered = funRatings.filter(
+        (evaluation) => evaluation.assignment == assignment.assignment
       );
-      const DIFFfiltered = difficultyEvaluations.filter(
-        (ev) => ev.assignment == assignment.assignment
+      const difficultyFiltered = difficultyRatings.filter(
+        (evaluation) => evaluation.assignment == assignment.assignment
       );
-      const funAverage = calcAverage(FUNfiltered, assignment, "fun");
-      const diffAverage = calcAverage(DIFFfiltered, assignment, "difficulty");
+      const funAverage = calculateAverage(funFiltered, "fun");
+      const diffAverage = calculateAverage(difficultyFiltered, "difficulty");
       data.push({
         short: assignment.short,
         assignment: assignment.assignment,
@@ -77,12 +69,13 @@ const StudentView = (props) => {
 
   const dataToUse = setData();
 
+  // Make data ready for the graph
   const ratings = dataToUse.map((score) => ({
     assignmentShort: score.short,
     assignment: score.assignment,
     difficultyScore: score.difficultyScore,
     funScore: score.funScore,
-    label: `${score.assignment}, diff: ${score.difficultyScore.toFixed(
+    label: `${score.assignment}, difficulty: ${score.difficultyScore.toFixed(
       1
     )}, fun: ${score.funScore.toFixed(1)}`,
   }));
@@ -92,44 +85,38 @@ const StudentView = (props) => {
       <div className="graphHeader">
         <span className="h1">Student: {student.name}</span>
       </div>
-      <div className="graph">
-        <BarChart
-          ratings={ratings}
-          showFun={props.showFun}
-          showDifficulty={props.showDifficulty}
-          handleChange={props.handleChange}
-        />
-      </div>
 
-      <div className="details">
-        {props.isLoading ? (
-          "Loading..."
+      <div className="buttonHeader">
+        {/* Togglebutton between bargraph and student profile */}
+        {props.displayBarGraph ? (
+          <button name="details" onClick={props.toggleDisplay}>
+            Show profile
+          </button>
         ) : (
-          <div className="studentDetails">
-            <div className="detailPicture">
-              <img src={student.picture} />
-            </div>
-            <div className="detailText">
-              <div>
-                <p>
-                  <b>Name:</b> {person.name} {person.lastName}
-                </p>
-                <p>
-                  <b>Age:</b> {person.age}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <b>Email:</b> {person.email}
-                </p>
-                <p>
-                  <b>Phone:</b> {person.phone}
-                </p>
-              </div>
-            </div>
-          </div>
+          <button name="barStudent" onClick={props.toggleDisplay}>
+            Show bargraph
+          </button>
         )}
       </div>
+
+      {props.displayBarGraph ? (
+        <div className="graph">
+          <BarChart
+            ratings={ratings}
+            showFun={props.showFun}
+            showDifficulty={props.showDifficulty}
+            handleChange={props.handleChange}
+          />
+        </div>
+      ) : (
+        <div className="details">
+          {props.isLoading ? (
+            "Loading..."
+          ) : (
+            <StudentProfile student={student} person={person} />
+          )}
+        </div>
+      )}
     </div>
   );
 };

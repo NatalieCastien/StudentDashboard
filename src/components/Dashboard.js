@@ -14,10 +14,15 @@ class Dashboard extends React.Component {
       personalData: [],
       funEvaluations: [],
       difficultyEvaluations: [],
+
       showFun: true,
       showDifficulty: true,
       showLineFun: true,
       showLineDifficulty: true,
+
+      displayBarGraph: true,
+      displayStudentBarGraph: true,
+
       isLoading: true,
     };
   }
@@ -26,7 +31,7 @@ class Dashboard extends React.Component {
     students.map((student) => {
       student.evaluations.forEach((evaluation) => {
         const shortAssigmentName = evaluation.assignment.slice(0, 6);
-        type == "fun"
+        type === "fun"
           ? array.push({
               studentId: student.id,
               short: shortAssigmentName,
@@ -71,7 +76,6 @@ class Dashboard extends React.Component {
     fetch("https://student-dashboard-ca2f2.firebaseio.com/students.json")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const result = Object.keys(data).map((key) => ({
           id: data[key].id,
           name: data[key].name,
@@ -83,7 +87,6 @@ class Dashboard extends React.Component {
           email: data[key].email,
           photo: data[key].photo,
         }));
-        console.log(result);
         this.setState({ personalData: result });
         this.setState({ isLoading: false });
         this.createEvaluationData();
@@ -91,92 +94,32 @@ class Dashboard extends React.Component {
       .catch((error) => console.log(error));
   };
 
-  // ADD RANDOM PERSON DATA TO FIREBASE --- ONLY THE FIRST TIME!!
-  // addToFireBase = (student) => {
-  //   const data = student;
-  //   console.log(data);
-  //   const request = {
-  //     method: "POST",
-  //     body: JSON.stringify(data),
-  //   };
-  //   console.log(request);
-  //   fetch(
-  //     "https://student-dashboard-ca2f2.firebaseio.com/students.json",
-  //     request
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
-  // RETREIVE RANDOM PERSONDATA AND CALL API POST FUNCTION -- ONLY FIRST TIME!!
-  // firstSavePersonData = () => {
-  //   this.setState({ isLoading: true });
-  //   const men = ["Floris", "Hector", "Maurits", "Storm"];
-  //   let newStudentArray = [];
-  //   students.map((student) => {
-  //     if (men.includes(student.name)) {
-  //       fetch("https://randomuser.me/api/?gender=male")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           const results = data.results[0];
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             lastName: results.name.last,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             photo: results.picture.medium,
-  //           };
-  //           this.addToFireBase(personObject);
-  //           newStudentArray.push(personObject);
-  //         })
-  //         .catch((error) => console.log(error));
-  //     } else {
-  //       fetch("https://randomuser.me/api/?gender=female")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           const results = data.results[0];
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             lastName: results.name.last,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             photo: results.picture.medium,
-  //           };
-  //           this.addToFireBase(personObject);
-  //           newStudentArray.push(personObject);
-  //         })
-  //         .catch((error) => console.log(error));
-  //     }
-  //   });
-  //   const studentData = newStudentArray;
-  // };
-
-  componentDidMount() {
-    // this.firstSavePersonData();
-    // this.createEvaluationData();
-    this.getPersonalData();
-  }
-
   changeShowState = (event) => {
     const { name, checked } = event.target;
     this.setState({ [name]: checked });
   };
 
+  // Toggle display between bargraph, linegraph and profile
+  toggleDisplay = (event) => {
+    const boxToDisplay = event.target.name;
+    boxToDisplay === "line"
+      ? this.setState({ displayBarGraph: false })
+      : boxToDisplay === "bar"
+      ? this.setState({ displayBarGraph: true })
+      : boxToDisplay === "details"
+      ? this.setState({ displayStudentBarGraph: false })
+      : boxToDisplay === "barStudent" &&
+        this.setState({ displayStudentBarGraph: true });
+  };
+
+  componentDidMount() {
+    this.getPersonalData();
+  }
+
   render() {
     return (
       <Router>
-        {this.state.isLoading == false && (
+        {this.state.isLoading === false && (
           <StudentOverview
             students={this.state.students}
             data={this.state.personalData}
@@ -193,9 +136,11 @@ class Dashboard extends React.Component {
                 funEvaluations={this.state.funEvaluations}
                 difficultyEvaluations={this.state.difficultyEvaluations}
                 handleChange={this.changeShowState}
+                displayBarGraph={this.state.displayBarGraph}
+                toggleDisplay={this.toggleDisplay}
               />
             </Route>
-            {this.state.isLoading == false && (
+            {this.state.isLoading === false && (
               <Route
                 path="/student/:id"
                 children={
@@ -208,6 +153,8 @@ class Dashboard extends React.Component {
                     students={this.state.students}
                     personalData={this.state.personalData}
                     isLoading={this.state.isLoading}
+                    displayBarGraph={this.state.displayStudentBarGraph}
+                    toggleDisplay={this.toggleDisplay}
                   />
                 }
               />
