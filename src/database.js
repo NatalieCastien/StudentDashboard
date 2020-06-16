@@ -2,7 +2,7 @@ const students = [
   {
     id: 1,
     name: "Evelyn",
-    picture: "https://randomuser.me/api/portraits/med/women/51.jpg",
+    picture: "https://randomuser.me/api/portraits/women/51.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -289,7 +289,7 @@ const students = [
   {
     id: 2,
     name: "Aranka",
-    picture: "https://randomuser.me/api/portraits/med/women/85.jpg",
+    picture: "https://randomuser.me/api/portraits/women/85.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -576,7 +576,7 @@ const students = [
   {
     id: 3,
     name: "Floris",
-    picture: "https://randomuser.me/api/portraits/med/men/27.jpg",
+    picture: "https://randomuser.me/api/portraits/men/27.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -863,7 +863,7 @@ const students = [
   {
     id: 4,
     name: "Hector",
-    picture: "https://randomuser.me/api/portraits/med/men/18.jpg",
+    picture: "https://randomuser.me/api/portraits/men/18.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -1150,7 +1150,7 @@ const students = [
   {
     id: 5,
     name: "Martina",
-    picture: "https://randomuser.me/api/portraits/med/women/9.jpg",
+    picture: "https://randomuser.me/api/portraits/women/9.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -1437,7 +1437,7 @@ const students = [
   {
     id: 6,
     name: "Maurits",
-    picture: "https://randomuser.me/api/portraits/med/men/55.jpg",
+    picture: "https://randomuser.me/api/portraits/men/55.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -1724,7 +1724,7 @@ const students = [
   {
     id: 7,
     name: "Rahima",
-    picture: "https://randomuser.me/api/portraits/med/women/33.jpg",
+    picture: "https://randomuser.me/api/portraits/women/33.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -2011,7 +2011,7 @@ const students = [
   {
     id: 8,
     name: "Sandra",
-    picture: "https://randomuser.me/api/portraits/med/women/95.jpg",
+    picture: "https://randomuser.me/api/portraits/women/95.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -2298,7 +2298,7 @@ const students = [
   {
     id: 9,
     name: "Wietske",
-    picture: "https://randomuser.me/api/portraits/med/women/63.jpg",
+    picture: "https://randomuser.me/api/portraits/women/63.jpg",
     evaluations: [
       {
         assignment: "SCRUM",
@@ -2585,7 +2585,7 @@ const students = [
   {
     id: 10,
     name: "Storm",
-    picture: "https://randomuser.me/api/portraits/med/men/33.jpg",
+    picture: "https://randomuser.me/api/portraits/men/33.jpg",
     evaluations: [
       {
         assignment: "SCRUM",

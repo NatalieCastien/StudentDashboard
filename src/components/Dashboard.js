@@ -11,12 +11,14 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       students: students,
+      personalData: [],
       funEvaluations: [],
       difficultyEvaluations: [],
       showFun: true,
       showDifficulty: true,
       showLineFun: true,
       showLineDifficulty: true,
+      isLoading: true,
     };
   }
 
@@ -43,10 +45,18 @@ class Dashboard extends React.Component {
 
   createEvaluationData = () => {
     let funEvaluationsArray = [];
-    this.createEvaluationArray(funEvaluationsArray, "fun", this.state.students);
+    this.createEvaluationArray(
+      funEvaluationsArray,
+      "fun",
+      this.state.personalData
+    );
 
     let difEvaluationsArray = [];
-    this.createEvaluationArray(difEvaluationsArray, "dif", this.state.students);
+    this.createEvaluationArray(
+      difEvaluationsArray,
+      "dif",
+      this.state.personalData
+    );
 
     this.setState(() => {
       return {
@@ -56,114 +66,106 @@ class Dashboard extends React.Component {
     });
   };
 
-  // getPersonData = () => {
-  //   const men = ["Floris", "Hector", "Maurits", "Storm"];
+  getPersonalData = async () => {
+    this.setState({ isLoading: true });
+    fetch("https://student-dashboard-ca2f2.firebaseio.com/students.json")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        const result = Object.keys(data).map((key) => ({
+          id: data[key].id,
+          name: data[key].name,
+          evaluations: data[key].evaluations,
+          lastName: data[key].lastName,
+          gender: data[key].gender,
+          age: data[key].age,
+          phone: data[key].phone,
+          email: data[key].email,
+          photo: data[key].photo,
+        }));
+        console.log(result);
+        this.setState({ personalData: result });
+        this.setState({ isLoading: false });
+        this.createEvaluationData();
+      })
+      .catch((error) => console.log(error));
+  };
 
-  //   let newStudentArray = [];
-  //   students.map((student) => {
-  //     if (men.includes(student.name)) {
-  //       fetch("https://randomuser.me/api/?gender=male")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           // console.log(data.results[0]);
-  //           const results = data.results[0];
-
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             picture: results.picture,
-  //           };
-  //           newStudentArray.push(personObject);
-  //           console.log
-  //         })
-  //         .catch((error) => console.log(error));
-  //     } else {
-  //       fetch("https://randomuser.me/api/?gender=female")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           // console.log(data.results[0]);
-  //           const results = data.results[0];
-
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             picture: results.picture,
-  //           };
-  //           newStudentArray.push(personObject);
-  //         })
-  //         .catch((error) => console.log(error));
-  //     }
-  //   });
-  //   this.setState({ students: newStudentArray });
-  //   console.log(newStudentArray);
-  //   // this.setState({ isLoading: false });getPersonData = () => {
-  //   const men = ["Floris", "Hector", "Maurits", "Storm"];
-
-  //   let newStudentArray = [];
-  //   students.map((student) => {
-  //     if (men.includes(student.name)) {
-  //       fetch("https://randomuser.me/api/?gender=male")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           // console.log(data.results[0]);
-  //           const results = data.results[0];
-
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             picture: results.picture,
-  //           };
-  //           newStudentArray.push(personObject);
-  //           console.log
-  //         })
-  //         .catch((error) => console.log(error));
-  //     } else {
-  //       fetch("https://randomuser.me/api/?gender=female")
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           // console.log(data.results[0]);
-  //           const results = data.results[0];
-
-  //           const personObject = {
-  //             id: student.id,
-  //             name: student.name,
-  //             evaluations: student.evaluations,
-  //             gender: results.gender,
-  //             age: results.dob.age,
-  //             email: results.email,
-  //             phone: results.phone,
-  //             picture: results.picture,
-  //           };
-  //           newStudentArray.push(personObject);
-  //         })
-  //         .catch((error) => console.log(error));
-  //     }
-  //   });
-  //   this.setState({ students: newStudentArray });
-  //   console.log(newStudentArray);
-  //   // this.setState({ isLoading: false });
-  //   this.createEvaluationData();
+  // ADD RANDOM PERSON DATA TO FIREBASE --- ONLY THE FIRST TIME!!
+  // addToFireBase = (student) => {
+  //   const data = student;
+  //   console.log(data);
+  //   const request = {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //   };
+  //   console.log(request);
+  //   fetch(
+  //     "https://student-dashboard-ca2f2.firebaseio.com/students.json",
+  //     request
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => console.log(error));
   // };
-  //   this.createEvaluationData();
+
+  // RETREIVE RANDOM PERSONDATA AND CALL API POST FUNCTION -- ONLY FIRST TIME!!
+  // firstSavePersonData = () => {
+  //   this.setState({ isLoading: true });
+  //   const men = ["Floris", "Hector", "Maurits", "Storm"];
+  //   let newStudentArray = [];
+  //   students.map((student) => {
+  //     if (men.includes(student.name)) {
+  //       fetch("https://randomuser.me/api/?gender=male")
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           const results = data.results[0];
+  //           const personObject = {
+  //             id: student.id,
+  //             name: student.name,
+  //             evaluations: student.evaluations,
+  //             lastName: results.name.last,
+  //             gender: results.gender,
+  //             age: results.dob.age,
+  //             email: results.email,
+  //             phone: results.phone,
+  //             photo: results.picture.medium,
+  //           };
+  //           this.addToFireBase(personObject);
+  //           newStudentArray.push(personObject);
+  //         })
+  //         .catch((error) => console.log(error));
+  //     } else {
+  //       fetch("https://randomuser.me/api/?gender=female")
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           const results = data.results[0];
+  //           const personObject = {
+  //             id: student.id,
+  //             name: student.name,
+  //             evaluations: student.evaluations,
+  //             lastName: results.name.last,
+  //             gender: results.gender,
+  //             age: results.dob.age,
+  //             email: results.email,
+  //             phone: results.phone,
+  //             photo: results.picture.medium,
+  //           };
+  //           this.addToFireBase(personObject);
+  //           newStudentArray.push(personObject);
+  //         })
+  //         .catch((error) => console.log(error));
+  //     }
+  //   });
+  //   const studentData = newStudentArray;
   // };
 
   componentDidMount() {
-    this.createEvaluationData();
+    // this.firstSavePersonData();
+    // this.createEvaluationData();
+    this.getPersonalData();
   }
 
   changeShowState = (event) => {
@@ -174,23 +176,15 @@ class Dashboard extends React.Component {
   render() {
     return (
       <Router>
-        <StudentOverview students={this.state.students} />
+        {this.state.isLoading == false && (
+          <StudentOverview
+            students={this.state.students}
+            data={this.state.personalData}
+          />
+        )}
         <div className="dashboard">
           <Switch>
-            <Route
-              path="/student/:id"
-              children={
-                <StudentView
-                  showFun={this.state.showFun}
-                  showDifficulty={this.state.showDifficulty}
-                  funEvaluations={this.state.funEvaluations}
-                  difficultyEvaluations={this.state.difficultyEvaluations}
-                  handleChange={this.changeShowState}
-                  students={this.state.students}
-                />
-              }
-            />
-            <Route path="/">
+            <Route path="/" exact>
               <MainView
                 showFun={this.state.showFun}
                 showDifficulty={this.state.showDifficulty}
@@ -201,6 +195,23 @@ class Dashboard extends React.Component {
                 handleChange={this.changeShowState}
               />
             </Route>
+            {this.state.isLoading == false && (
+              <Route
+                path="/student/:id"
+                children={
+                  <StudentView
+                    showFun={this.state.showFun}
+                    showDifficulty={this.state.showDifficulty}
+                    funEvaluations={this.state.funEvaluations}
+                    difficultyEvaluations={this.state.difficultyEvaluations}
+                    handleChange={this.changeShowState}
+                    students={this.state.students}
+                    personalData={this.state.personalData}
+                    isLoading={this.state.isLoading}
+                  />
+                }
+              />
+            )}
           </Switch>
         </div>
       </Router>

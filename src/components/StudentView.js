@@ -2,14 +2,25 @@ import React from "react";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
+import StudentDetails from "./StudentDetails";
 
 const StudentView = (props) => {
   const { id } = useParams();
+  console.log(props.personalData);
 
-  const student = props.students.filter((student) => {
+  // Personal details
+  const personObject = props.personalData.filter((student) => {
     return student.id == id;
   });
-  const name = student[0].name;
+  const person = personObject[0];
+  // const age = person.age;
+  // const email = person.email;
+
+  const studentObject = props.students.filter((student) => {
+    return student.id == id;
+  });
+  // console.log(student);
+  const student = studentObject[0];
   // const name = student.name;
 
   const funEvaluations = props.funEvaluations.filter(
@@ -79,7 +90,7 @@ const StudentView = (props) => {
   return (
     <div>
       <div className="graphHeader">
-        <span className="h1">Student: {name}</span>
+        <span className="h1">Student: {student.name}</span>
       </div>
       <div className="graph">
         <BarChart
@@ -90,14 +101,35 @@ const StudentView = (props) => {
         />
       </div>
 
-      {/* <div className="details">
-        <LineChart
-          ratings={ratings}
-          showFun={props.showFun}
-          showDifficulty={props.showDifficulty}
-          handleChange={props.handleChange}
-        />
-      </div> */}
+      <div className="details">
+        {props.isLoading ? (
+          "Loading..."
+        ) : (
+          <div className="studentDetails">
+            <div className="detailPicture">
+              <img src={student.picture} />
+            </div>
+            <div className="detailText">
+              <div>
+                <p>
+                  <b>Name:</b> {person.name} {person.lastName}
+                </p>
+                <p>
+                  <b>Age:</b> {person.age}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <b>Email:</b> {person.email}
+                </p>
+                <p>
+                  <b>Phone:</b> {person.phone}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

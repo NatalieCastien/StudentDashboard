@@ -101,6 +101,7 @@ button:focus {
 .photo {
   border-radius: 50%;
   margin: 5px;
+  width: 80px;
 }
 .studentName {
   color: black;
@@ -141,7 +142,7 @@ button:focus {
 .details {
   background-color: white;
   padding: 10px;
-  margin: 50px 20px 20px 20px;
+  margin: 80px 20px 20px 20px;
   border: 1px solid #eba999;
   border-radius: 10px;
 }
@@ -157,6 +158,26 @@ form label {
   margin-left: 50px;
 }
 /* END DASHBOARD */
+
+/* DETAILS */
+.studentDetails {
+  /* display: flex;
+  justify-content: space-between;
+  position: relative; */
+}
+.detailPicture {
+  position: relative;
+  text-align: center;
+}
+.detailPicture img {
+  border-radius: 50%;
+  margin-top: -70px;
+  border: 1px solid #eba999;
+}
+.detailText {
+  text-align: center;
+}
+/* END DETAILS */
 
 /* FOOTER */
 footer {
