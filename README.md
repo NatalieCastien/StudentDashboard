@@ -16,7 +16,7 @@ The code for retreiving and posting this data is written below:
 // };
 // console.log(request);
 // fetch(
-// "https://student-dashboard-ca2f2.firebaseio.com/students.json",
+// "//url//",
 // request
 // )
 // .then((response) => response.json())
